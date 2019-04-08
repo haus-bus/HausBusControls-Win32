@@ -27,7 +27,7 @@ LIB_DEP:=
 LINKER_SCRIPT_DEP:=
 
 INCLUDE = \
--I ../../SwFramework
+-I ../../src/SwFramework
 
 SRC = \
 SwFramework/IoStream.cpp \
@@ -89,7 +89,7 @@ $(1) : Makefile $(2)
 endef
 
 # generate the targets by using the above template
-$(foreach OBJ,$(OBJS),$(eval $(call define_obj_target,$(OBJ),$(OBJ:%.o=../../%.cpp))))
+$(foreach OBJ,$(OBJS),$(eval $(call define_obj_target,$(OBJ),$(OBJ:%.o=../../src/%.cpp))))
 
 .PHONY: clean 
 clean:
