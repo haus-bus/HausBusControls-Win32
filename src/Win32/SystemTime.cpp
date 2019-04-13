@@ -6,13 +6,13 @@
  */
 
 #include <Time/SystemTime.h>
-
-uint16_t SystemTime::ticks( 0 );
 int8_t SystemTime::ticksPerSecondAdjustment( 0 );
+#include <windows.h>
+#include <ctime>
 
 SystemTime::time_t SystemTime::now()
 {
-   return 0;
+   return std::clock();
 }
 
 SystemTime::time_t SystemTime::since( const SystemTime::time_t& lastTime )
@@ -45,6 +45,7 @@ void SystemTime::waitMs( uint16_t ms )
    time_t timestamp = now();
    while ( since( timestamp ) < ms )
    {
+      Sleep( ms/2 );
    }
 }
 

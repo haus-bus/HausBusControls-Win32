@@ -8,7 +8,7 @@
                 "kind": "build",
                 "isDefault": true
             },
-            "command": "make",
+            "command": "make -C bin\\Debug -j8",       
         },
         {
             "label": "Build & run C++ project",

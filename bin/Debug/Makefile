@@ -1,9 +1,10 @@
 CXX = g++
-CXXFLAGS = -Wall -std=c++11 -g3 -D_WIN32 -D__DUMMY__
+CXXFLAGS = -Wall -std=c++11 -g3 -D_DEBUG_ -D_WIN32 -DCONTROLLER_ID=AR8_ID -D__DUMMY__
 LDFLAGS = -static
 
 SHELL := cmd.exe
 RM := del /S /Q
+REL_SRC_DIR := ../../src/
 
 PROJ := AR8Simulator
 BUILD_DIR := Debug
@@ -27,7 +28,10 @@ LIB_DEP:=
 LINKER_SCRIPT_DEP:=
 
 INCLUDE = \
--I ../../src/SwFramework
+-I $(REL_SRC_DIR)HbcUnits \
+-I $(REL_SRC_DIR)HbcUnits/HwUnitBoards \
+-I $(REL_SRC_DIR)Win32 \
+-I $(REL_SRC_DIR)SwFramework
 
 SRC = \
 SwFramework/IoStream.cpp \
@@ -57,11 +61,44 @@ SwFramework/Time/Calender.cpp \
 SwFramework/Time/WeekTime.cpp \
 SwFramework/Tracing/Logger.cpp \
 SwFramework/Tracing/Traces.cpp \
+HbcUnits/BaseSensorUnit.cpp \
+HbcUnits/ConfigurationManager.cpp \
+HbcUnits/DebugOptions.cpp \
+HbcUnits/ErrorMessage.cpp \
+HbcUnits/Gateway.cpp \
+HbcUnits/HbcConfiguration.cpp \
+HbcUnits/HbcDevice.cpp \
+HbcUnits/HbcInterface.cpp \
+HbcUnits/IResponse.cpp \
+HbcUnits/LogicalButton.cpp \
+HbcUnits/SystemConditions.cpp \
+HbcUnits/HwUnits/Button.cpp \
+HbcUnits/HwUnits/Counter.cpp \
+HbcUnits/HwUnits/DigitalPort.cpp \
+HbcUnits/HwUnits/DigitalOutputUnit.cpp \
+HbcUnits/HwUnits/Led.cpp \
+HbcUnits/HwUnits/PortPinUnit.cpp \
+HbcUnits/Rules/PersistentRules.cpp \
+HbcUnits/Rules/Rule.cpp \
+HbcUnits/Rules/RuleElement.cpp \
+HbcUnits/Rules/RuleEngine.cpp \
+Win32/ApplicationTable.cpp \
 Win32/Basics.cpp \
+Win32/Eeprom.cpp \
 Win32/Enc28j60.cpp \
+Win32/DigitalOutput.cpp \
+Win32/DigitalPortHw.cpp \
+Win32/SlotHw.cpp \
+Win32/Flash.cpp \
+Win32/HbcDeviceHw.cpp \
 Win32/MemoryManager.cpp \
+Win32/PersistentMemory.cpp \
+Win32/PortPin.cpp \
 Win32/SystemTime.cpp \
-AR8Simulator/AR8Simulator.cpp
+Win32/UserSignature.cpp \
+Win32/Peripherals/IoPort.cpp \
+AR8Simulator/AR8SystemHw.cpp \
+AR8Simulator/AR8System.cpp
 
 
 OBJS += $(SRC:.cpp=$(OBJ_EXT))
@@ -83,13 +120,13 @@ $(EXEC): $(SUB_DIRS) $(OBJS)
 	mkdir "$(@:%/.=%)"
 
 define define_obj_target
-$(1) : Makefile $(2)
-	@echo compile $(2)
-	@$(CXX) $(CXXFLAGS) $(INCLUDE) -c -MD -MP -MF "$(1:%.o=%.d)" -MT"$(1:%.o=%.d)" -MT"$(1:%.o=%.o)" -o "$(1)" "$(2)" 
+$(1) : Makefile $(REL_SRC_DIR)$(1:%.o=%.cpp)
+	@echo compile $(1:%.o=%.cpp)
+	@$(CXX) $(CXXFLAGS) $(INCLUDE) -c -MD -MP -MF "$(1:%.o=%.d)" -MT"$(1:%.o=%.d)" -MT"$(1:%.o=%.o)" -o "$(1)" "$(REL_SRC_DIR)$(1:%.o=%.cpp)" 
 endef
 
 # generate the targets by using the above template
-$(foreach OBJ,$(OBJS),$(eval $(call define_obj_target,$(OBJ),$(OBJ:%.o=../../src/%.cpp))))
+$(foreach OBJ,$(OBJS),$(eval $(call define_obj_target,$(OBJ))))
 
 .PHONY: clean 
 clean:
