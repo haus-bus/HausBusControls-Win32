@@ -2,13 +2,16 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Build C++ project",
+            "label": "Build HBC-Win32",
             "type": "shell",
             "group": {
                 "kind": "build",
                 "isDefault": true
             },
-            "command": "make -C bin\\Debug -j8",       
+            "command": "make -j8",
+            "problemMatcher": [
+                "$gcc"
+            ]
         },
         {
             "label": "Build & run C++ project",

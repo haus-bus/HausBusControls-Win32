@@ -9,7 +9,7 @@
 #define Peripherals_Flash_H
 
 #include <SwFramework.h>
-#include "PersistentMemory.h"
+#include <PersistentMemory.h>
 
 class Flash : public PersistentMemory
 {

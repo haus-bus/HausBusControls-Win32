@@ -9,7 +9,6 @@
 #define Electronics_SystemBoards_AR8_AR8_Boards_AR8SystemHw_H
 
 #include <HbcDeviceHw.h>
-#include <SlotHw.h>
 
 class AR8SystemHw : public HbcDeviceHw
 {
@@ -49,8 +48,6 @@ class AR8SystemHw : public HbcDeviceHw
       ////    Relations and components    ////
 
    protected:
-
-       SlotHw slotHw[MAX_SLOTS];
 
 };
 

@@ -201,12 +201,12 @@ class IoPort
 
       inline void toggledirectionection( uint8_t pins )
       {
-         pinDirections = invert<uint8_t>( pinDirections, pins );
+         pinDirections = invertBits<uint8_t>( pinDirections, pins );
       }
 
       inline void togglePins( uint8_t pins )
       {
-         pinStates = invert<uint8_t>( pinStates, pins );
+         pinStates = invertBits<uint8_t>( pinStates, pins );
       }
 
       ////    Attributes    ////

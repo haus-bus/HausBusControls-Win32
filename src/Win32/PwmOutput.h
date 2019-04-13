@@ -53,6 +53,11 @@ class PwmOutput : public DigitalOutput
          period = _period;
       }
 
+      uint16_t getPeriode() const
+      {
+         return period;
+      }      
+
    protected:
 
       uint16_t value;
