@@ -136,6 +136,7 @@ void AR8SystemHw::configureSlots()
             break;
          }
          case UNUSED_SLOT:
+         case NOT_CONFIGURED:
          {
             break;
          }
